@@ -208,10 +208,10 @@ body {
 }
 
 .button.resume-button:hover {
-  background: var(--accent-color) !important;
+  background: rgb(66, 40, 236) !important;
   color: #ffffff !important;
-  border: 2px solid var(--accent-color) !important;
-  box-shadow: 0 8px 20px rgba(var(--accent-color-rgb), 0.4) !important;
+  border: 2px solid rgb(66, 40, 236) !important;
+  box-shadow: 0 8px 20px rgba(lightskyblue, 0.4) !important;
   transform: translateY(-3px) !important;
 }
 
@@ -374,7 +374,7 @@ hr {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); /* Deeper, softer shadow */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
-    flex-direction: row; /* Stack image and details vertically */
+    flex-direction: column; /* Default to column for mobile */
 }
 
 .project-item:hover {
@@ -384,10 +384,10 @@ hr {
 
 .project-image-container {
     position: relative;
-    width: 10000px;
-    height: 95%;
-    /* Key change: Fixed aspect ratio for consistent height */
-    padding-top: 10%; /* 16:10 aspect ratio (height is 60% of width). Adjust as needed (e.g., 75% for 4:3, 56.25% for 16:9) */
+    width: 100%; /* Corrected from 10000px */
+    /* Removed height: 95%; */
+    /* Key change: Fixed aspect ratio for consistent height on mobile (16:9) */
+    padding-top: 56.25%; /* For 16:9 aspect ratio (height is 56.25% of width) */
     overflow: hidden; /* Hide overflow if image doesn't perfectly fit */
     background-color: #333; /* Placeholder background */
 }
@@ -605,7 +605,7 @@ hr {
 }
 
 .social-links-lg a:hover {
-  color: steelblue;
+  color: rgb(84, 133, 206);
   transform: translateY(-5px);
 }
 
@@ -725,7 +725,36 @@ footer p {
 @keyframes typingGlow{0%,100%{text-shadow:0 0 8px rgba(var(--accent-color-rgb),.4)}50%{text-shadow:0 0 15px rgba(var(--accent-color-rgb),.8)}}
 
 /* Responsive Design */
-@media (max-width: 992px) {
+@media (min-width: 992px) {
+    .projects-container {
+        /* On larger screens, use a grid layout for project items */
+        display: grid;
+        grid-template-columns: 1fr; /* Ensures each project item takes full width */
+        gap: 30px;
+    }
+
+    .project-item {
+        flex-direction: row; /* Ensure row layout for desktop */
+    }
+
+    .project-image-container {
+        /* Adjusted width for desktop to take more space */
+        width: 65%; /* Giving more space to the image (e.g., 65% of the project-item's width) */
+        /* Recalculate padding-top based on new width and desired 16:9 aspect ratio
+           (9 / 16) * 65% = 0.5625 * 65% = 36.5625% */
+        padding-top: 36.5%; /* Adjusted to maintain aspect ratio with new width */
+        flex-shrink: 0; /* Prevent it from shrinking */
+        flex-grow: 0; /* Prevent it from growing beyond 65% */
+    }
+
+    .project-details {
+        flex-grow: 1; /* Takes the remaining 35% of space */
+        /* width: 35%; /* Explicitly define remaining width if flex-grow doesn't act as expected alone */ 
+    }
+}
+
+
+@media (max-width: 991px) { /* This media query now handles tablets and smaller desktops */
     .projects h2 {
         font-size: 3rem;
     }
@@ -738,6 +767,13 @@ footer p {
     }
     .project-details p {
         font-size: 1rem;
+    }
+    .project-item {
+        flex-direction: column; /* Stack image and details vertically */
+    }
+    .project-image-container {
+        width: 100%; /* Take full width on smaller screens */
+        padding-top: 60%; /* Maintain aspect ratio - slightly taller for smaller screens */
     }
 }
 
@@ -769,6 +805,9 @@ footer p {
     }
     .project-details h3 {
         font-size: 2rem;
+    }
+    .project-details p {
+        font-size: 1rem;
     }
     .project-buttons .button {
         font-size: 0.95rem;
