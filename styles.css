@@ -1,0 +1,848 @@
+/* Import Poppins font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap" rel="stylesheet"');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap'); /* NEW: For 'That's me' annotation */
+
+/* Define CSS Variables for a Cohesive Theme */
+:root {
+  /* --- REVISED: More vibrant gradient colors --- */
+  --gradient-light-1: #ffffff; /* Very light, warm yellow */
+  --gradient-warm-1: #ffffff;   /* Slightly deeper orange/peach (your current end) */
+  --gradient-light-2: #ffffff; /* Even lighter yellow/off-white */
+  --gradient-warm-2: #ffffff; /* Lighter orange for secondary accent */
+
+  --dark-heading: #d49f8f; /* Darker brown for contrast */
+  --dark-heading-rgb: 212, 159, 143; /* RGB values for --dark-heading */
+  --dark-text: #cfa99d;    /* Slightly lighter brown for body text */
+  --medium-light-text: #f0efef; /* Muted brown for secondary text */
+
+  /* Dark theme variables for the welcome overlay and dark elements (Unchanged) */
+  --primary-dark: #121212;
+  --secondary-dark: #1F1F1F;
+  --dark-text-on-dark: #E0E0E0;
+  --medium-text-on-dark: #B0B0B0;
+
+  /* Accent color - remains consistent */
+  --accent-color: #FF7043; /* Warmer orange accent */
+  --accent-color-rgb: 255, 112, 67;
+  --accent-secondary: #FFAB91; /* Lighter orange for secondary accent */
+
+  /* Shared styles */
+  --border-radius-lg: 20px;
+  --box-shadow-light: 0 5px 15px rgba(0, 0, 0, 0.08); /* Simplified shadow */
+}
+
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.6;
+  /* NEW: Define a gradient with distinct points that will be animated */
+  background: linear-gradient(135deg, var(--gradient-light-1) 0%, var(--gradient-warm-1) 50%, var(--gradient-light-1) 100%);
+  background-size: 400% 400%; /* Increased size for more movement in animation */
+  animation: colorShift 25s ease infinite alternate; /* New animation for color shifting */
+  color: var(--dark-text);
+  padding: 0;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Text Selection */
+::selection {
+  background: var(--accent-color);
+  color: #FFF;
+}
+::-moz-selection {
+  background: var(--accent-color);
+  color: #FFF;
+}
+
+/* Video Background Styling - MODIFIED */
+#video-background {
+  position: absolute; /* Positioned relative to its parent, .hero */
+  top: 0;
+  left: 0;
+  width: 100%; /* Cover the full width of the parent */
+  height: 100%; /* Cover the full height of the parent */
+  object-fit: cover; /* Ensures the video covers the entire container, cropping if necessary */
+  z-index: -2; /* Place it behind all content within the hero and the hero's overlay */
+  filter: brightness(100%); /* Dim the video slightly for better text readability */
+}
+
+/* Header/Navbar */
+#navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* MODIFIED: Make background more transparent (e.g., 0.2 for lighter effect) */
+  background: rgba(255, 255, 255, 0.1); /* Changed from 0.5 to 0.2 */
+  color: var(--dark-text); /* This keeps your text opaque */
+  padding: 1rem 2.5rem;
+  box-shadow: var(--box-shadow-light);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-100px);
+  transition: opacity 0.6s ease-in-out, transform 0.6s ease-out;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  /* MODIFIED: Make border-bottom more transparent (e.g., 0.1) */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Changed from 0.2 to 0.1 */
+}
+
+#navbar.visible {
+  opacity: .9; /* You might want to adjust this as well to fine-tune visibility */
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+#navbar h1 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--accent-color);
+  letter-spacing: 1.5px;
+}
+
+#navbar nav a {
+  margin-left: 35px;
+  color: lightblue;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.2rem;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+#navbar nav a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 4px;
+  background: lightskyblue;
+  bottom: -8px;
+  left: 0;
+  border-radius: 2px;
+  transition: width 0.3s ease-in-out;
+}
+
+#navbar nav a:hover {
+  color:  lightskyblue;
+}
+
+#navbar nav a:hover::after {
+  width: 100%;
+}
+
+/* Hero Section */
+.hero {
+  text-align: left; /* Changed to left-align */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start; /* Changed to flex-start for left alignment */
+  position: relative;
+  overflow: hidden;
+  padding: 2rem 10%; /* Adjusted padding for left alignment */
+  color: #fff;
+}
+
+/* Add an overlay specifically for the hero content for better readability over the video */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4); /* Dark overlay over the video in the hero section */
+  z-index: -1; /* Place it between the video (-2) and hero content (default) */
+}
+
+
+.hero h1.typed-text { /* Changed to h1 and added class for specific styling */
+  font-size: 5.5rem; /* Big font as requested */
+  margin-bottom: 0.5rem; /* Reduced margin */
+  font-weight: 800;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+  color: #fff;
+  animation: fadeInDown 1.5s ease-out forwards;
+}
+
+
+
+.hero p {
+  font-size: 1.1rem; /* Smaller normal font for description */
+  opacity: 0.95;
+  max-width: 700px; /* Adjusted max-width for left alignment */
+  margin: 0 0 2rem 0; /* Adjusted margin */
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+  color: #fff;
+  animation: fadeInUp 1.5s ease-out forwards;
+  animation-delay: 0.5s;
+}
+
+/* Resume Button Styling */
+/* Specific Resume Button Override */
+.button.resume-button {
+  background: transparent !important;
+  color: #ffffff !important;
+  border: 2px solid #ffffff !important;
+  box-shadow: none !important;
+  transform: none !important;
+  border-radius: 0;
+  backdrop-filter: blur(1px);
+}
+
+.button.resume-button:hover {
+  background: var(--accent-color) !important;
+  color: #ffffff !important;
+  border: 2px solid var(--accent-color) !important;
+  box-shadow: 0 8px 20px rgba(var(--accent-color-rgb), 0.4) !important;
+  transform: translateY(-3px) !important;
+}
+
+
+
+
+/* About Section */
+.about {
+  text-align: center;
+  margin: 5rem auto;
+  padding-top: 7rem;
+  padding-bottom: 10rem;
+  max-width: 1100px;
+}
+
+.about h2 {
+  font-size: 4rem;
+  color: steelblue;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.05);
+}
+
+
+hr {
+    display: block;
+    height: 1px;
+    border-top: 6px solid steelblue;
+    outline: 4px solid rgb(51, 127, 189);
+    margin: 0 auto;
+    width: 400px;
+    margin-bottom:3rem;
+}
+
+/* NEW: About Section - Container for Image and Text */
+.about-content {
+    display: flex; /* */
+    flex-direction: column; /* Default to column for mobile */
+    align-items: center; /* */
+    gap: 3rem; /* Space between image and text */
+    max-width: 1000px; /* Adjust as needed */
+    margin: 0 auto; /* Center the content wrapper */
+    text-align: left; /* Align text within its container */
+}
+
+@media (min-width: 768px) { /* For larger screens, switch to row layout */
+    .about-content {
+        flex-direction: row; /* */
+        justify-content: center; /* */
+        align-items: flex-start; /* Align items to the top */
+    }
+}
+
+/* NEW: Profile Photo Container */
+.profile-photo-container {
+    position: relative; /* */
+    width: 280px; /* Adjust size of the container for the image */
+    height: 320px; /* Adjust height for a more portrait shape */
+    background: #fff; /* Background behind the image for the white border effect */
+    padding: 15px; /* Creates the white border effect */
+    border: 1px solid rgba(0, 0, 0, 0.1); /* */
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.15); /* More pronounced shadow */
+    transform: rotate(-5deg); /* Slight rotation */
+    display: flex; /* */
+    justify-content: center; /* */
+    align-items: center; /* */
+}
+
+/* NEW: Profile Photo */
+.profile-photo {
+    width: 100%; /* */
+    height: 100%; /* */
+    object-fit: cover; /* */
+    display: block; /* Remove extra space below image */
+}
+
+/* NEW: "That's me" annotation */
+.thats-me-annotation {
+    position: absolute; /* */
+    top: -30px; /* Adjust vertical position */
+    left: -50px; /* Adjust horizontal position */
+    font-family: 'Dancing Script', cursive; /* Applied cursive font */
+    font-size: 1.8rem; /* */
+    color: steelblue;
+    transform: rotate(-10deg); /* Rotate the text */
+    white-space: nowrap; /* Keep text on one line */
+    font-weight: 600; /* */
+}
+
+.thats-me-annotation .arrow {
+    font-size: 1.5rem; /* Adjust arrow size */
+    margin-left: 5px; /* */
+}
+
+/* NEW: About Text Content */
+.about-text-content {
+    max-width: 600px; /* Control the width of the text block */
+}
+
+.about-text-content p {
+    margin-bottom: 1.5rem; /* Spacing between paragraphs */
+    font-size: 1.1rem; /* Adjust font size as needed */
+    color: rgb(62, 113, 147);
+    line-height: 1.8; /* */
+    text-align: left; /* Ensure paragraphs are left-aligned within their container */
+}
+
+.about-text-content p:last-child {
+    margin-bottom: 0; /* No margin after the last paragraph */
+}
+
+.about-text-content a {
+    color: var(--accent-color); /* Style links within the text */
+    text-decoration: underline; /* */
+    transition: color 0.3s ease; /* */
+}
+
+.about-text-content a:hover {
+    color: whitesmoke; /* */
+}
+
+/* Projects Section Styling */
+.projects {
+    padding: 80px 0;
+    background-color: var(--secondary-dark); /* A subtle dark background for the section */
+    color: var(--dark-text-on-dark);
+    text-align: center;
+}
+
+.projects h2 {
+    font-size: 3.5rem;
+    color: whitesmoke;
+    position: relative;
+    display: inline-block; /* To allow pseudo-elements to align properly */
+}
+
+.projects h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    width: 80px;
+    height: 3px;
+    background-color: var(--medium-light-text);
+    border-radius: 2px;
+}
+
+.projects-container {
+    display: grid;
+    grid-template-rows: repeat(auto-fit, minmax(320px, 1fr)); /* Responsive grid */
+    gap: 30px; /* Increased gap between project items */
+    max-width: 1300px;
+    margin: 40px auto 0 auto; /* More margin above first project item */
+    padding: 0 20px; /* Horizontal padding for smaller screens */
+}
+
+.project-item {
+    background-color: var(--primary-dark); /* Slightly darker background for individual cards */
+    border-radius: 9px; /* Smoother rounded corners */
+    overflow: hidden; /* Ensures image and details fit within rounded corners */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); /* Deeper, softer shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: row; /* Stack image and details vertically */
+}
+
+.project-item:hover {
+    transform: translateY(-7px); /* Lift effect on hover */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6); /* More pronounced shadow on hover */
+}
+
+.project-image-container {
+    position: relative;
+    width: 10000px;
+    height: 95%;
+    /* Key change: Fixed aspect ratio for consistent height */
+    padding-top: 10%; /* 16:10 aspect ratio (height is 60% of width). Adjust as needed (e.g., 75% for 4:3, 56.25% for 16:9) */
+    overflow: hidden; /* Hide overflow if image doesn't perfectly fit */
+    background-color: #333; /* Placeholder background */
+}
+
+.project-main-image {
+    position: absolute; /* Position the image absolutely within its padded container */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures image covers the area without distortion */
+    display: block;
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth transition for image changes and potential subtle zoom */
+}
+
+/* Arrow styling */
+.image-nav-arrows {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px; /* More padding from edges for arrows */
+    pointer-events: none; /* Allows clicks to pass through to the image by default */
+    z-index: 10; /* Ensure arrows are above the image */
+}
+
+.image-nav-arrows .arrow {
+    background-color: rgba(0, 0, 0, 0.6); /* Slightly darker background for better contrast */
+    color: white;
+    border: none;
+    padding: 12px 18px; /* Larger hit area */
+    cursor: pointer;
+    border-radius: 50%; /* Make them circular */
+    font-size: 1.8rem; /* Larger arrows */
+    line-height: 1;
+    transition: background-color 0.3s ease, opacity 0.3s ease, transform 0.2s ease;
+    opacity: 0; /* Hidden by default */
+    pointer-events: auto; /* Re-enable pointer events for the buttons themselves */
+    backdrop-filter: blur(3px); /* Subtle blur effect behind arrows */
+}
+
+.image-nav-arrows .arrow:hover {
+    background-color: rgba(0, 0, 0, 0.8); /* Darker on hover */
+    transform: scale(1.05); /* Slight scale on hover */
+}
+
+.project-details {
+    padding: 25px; /* Increased padding */
+    text-align: left; /* Align text to the left within the card */
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Allows details section to take up remaining space */
+}
+
+.project-details h3 {
+    font-size: 2.4rem; /* Slightly larger heading */
+    color: whitesmoke;
+    font-weight: 700;
+}
+
+.project-details p {
+    font-size: 1.0rem; /* Slightly larger body text */
+    line-height: 1.6; /* Improved line spacing */
+    color: var(--medium-light-text);
+    margin-bottom: 10px; /* More space above tech stack */
+    flex-grow: 1; /* Allows description to push tech stack and buttons down */
+}
+
+.project-tech-stack {
+    display: flex;
+    flex-wrap: wrap; /* Allow tags to wrap */
+    gap: 8px; /* Space between tags */
+    margin-top: 15px; /* Ensure spacing if description is short */
+    margin-bottom: 25px; /* More space before buttons */
+}
+
+.tech-tag {
+    background-color: rgba(var(--dark-heading-rgb), 0.15); /* Semi-transparent background using RGB from var */
+    color: beige;
+    padding: 6px 12px;
+    border-radius: 6px; /* Slightly more rounded tags */
+    font-size: 0.85rem; /* Smaller, neat tag font */
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: background-color 0.3s ease;
+}
+
+.tech-tag:hover {
+    background-color: rgba(var(--dark-heading-rgb), 0.3); /* Darker on hover */
+}
+
+.project-buttons {
+    display: flex;
+    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+    gap: 15px; /* Space between buttons */
+    margin-top: auto; /* Push buttons to the bottom of the card */
+}
+
+.project-buttons .button {
+    flex-grow: 1; /* Allow buttons to grow and fill space */
+    min-width: 140px; /* Ensure buttons don't get too small */
+    padding: 12px 20px; /* More padding for larger buttons */
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px; /* More rounded buttons */
+    text-decoration: none;
+    display: inline-flex; /* Use flexbox for button content */
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.project-buttons .button i {
+    margin-left: 8px; /* Space between text and icon */
+    font-size: 1.1rem; /* Slightly larger icons */
+}
+
+.project-buttons .live-demo {
+    background: var(--gradient-light-1); /* Use primary accent color */
+    color: var(--primary-dark); /* Dark text on primary button */
+    border: 1px solid var(--gradient-light-1);
+    box-shadow: none;
+}
+
+.project-buttons .live-demo:hover {
+    background: var(--primary-dark) ; /* Lighter on hover */
+    color: var(--gradient-light-1);
+    transform: translateY(-2px);
+    box-shadow: none;
+}
+
+.project-buttons .view-source {
+    background: var(--primary-dark); /* Transparent background */
+    color: var(--gradient-light-1); /* Accent color text */
+    border: 1px solid var(--primary-dark); /* Accent color border */
+    box-shadow: none;
+}
+
+.project-buttons .view-source:hover {
+    background: var(--gradient-light-1); /* Fill on hover */
+    color: var(--primary-dark); /* Dark text on filled button */
+    transform: translateY(-2px);
+    box-shadow: none;
+}
+
+
+/* Contact Section */
+.contact {
+  padding: 3rem 2rem;
+  text-align: center;
+  margin: 5rem auto;
+  max-width: 1100px;
+  background: transparent;
+}
+
+.contact h2 {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  color: steelblue;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.02);
+}
+
+.contact p {
+  font-size: 1.2rem;
+  color: rgb(66, 109, 143);
+  margin-bottom: 1.5rem;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.8;
+}
+
+.contact-content-wrapper {
+  display: block; /* Changed to block display */
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+
+.social-connect-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%; /* Make it take full width of its container (max-width: 900px set on wrapper) */
+}
+
+.social-connect-container h3 {
+  font-size: 2rem;
+  margin-bottom: .5rem;
+  color: steelblue;
+}
+
+.social-connect-container p {
+  font-size: 1.15rem;
+  color: steelblue;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.social-links-lg {
+  display: flex;
+  gap: 2.5rem;
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+}
+
+.social-links-lg a {
+  color: rgb(93, 144, 176);
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-links-lg a:hover {
+  color: steelblue;
+  transform: translateY(-5px);
+}
+
+.email-direct {
+  text-align: center;
+}
+
+.email-direct p {
+  font-size: 1.15rem;
+  margin-bottom: 1.5rem;
+}
+
+.email-button {
+  padding: 1rem 2.5rem;
+  font-size: 1.2rem;
+}
+
+.button.email-button{
+  background-color: rgb(91, 142, 173);
+}
+
+.button.email-button:hover {
+  background-color: steelblue;
+}
+/* Universal Button Styling */
+.button {
+  color: #FFF;
+  padding: 1rem 2.5rem;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.3rem;
+  display: inline-block;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(lightblue, 0.3);
+  letter-spacing: 0.5px;
+  position: relative;
+  overflow: hidden;
+}
+
+.button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(lightskyblue, 0.4);
+}
+
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 2rem 2rem;
+  background: var(--primary-dark);
+  color: var(--medium-text-on-dark);
+  box-shadow: inset 0 5px 20px rgba(0,0,0,0.3);
+}
+
+footer p {
+  font-size: 1.15rem;
+  margin-bottom: 1rem;
+}
+
+/* Welcome Overlay CSS (Unchanged as requested) */
+#welcome-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-dark);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  color: var(--dark-text-on-dark);
+  font-family: 'Poppins', sans-serif;
+  user-select: none;
+  transition: opacity 1s ease-out, transform 1s ease-out;
+  padding: 2rem;
+  box-sizing: border-box;
+  overflow: hidden;
+  background-image: radial-gradient(circle at center, rgba(var(--accent-color-rgb), 0.08) 1px, transparent 1px);
+  background-size: 30px 30px;
+  animation: backgroundPan 50s linear infinite alternate;
+}
+#welcome-text{opacity:0;transition:opacity .6s ease;max-width:90vw;text-align:center;font-size:2.5rem;font-weight:800;color:var(--dark-text-on-dark);position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-shadow:0 0 20px rgba(224,224,224,.8),0 0 30px rgba(224,224,224,.5)}
+#loading-container{position:absolute;bottom:50px;left:50px;font-size:.9rem;font-style:italic;font-family:'monospace',monospace;color:var(--medium-text-on-dark);display:flex;flex-direction:column;gap:10px;text-align:left}
+#loading-container div{white-space:pre;animation:typingGlow 2s infinite alternate}
+#welcome-overlay.fade-out{opacity:0;transform:scale(1.1);pointer-events:none}
+
+/* --- NEW and MODIFIED Keyframe Animations --- */
+@keyframes colorShift {
+  0% {
+    background-position: 0% 50%; /* Start with light color prominent */
+  }
+  50% {
+    background-position: 100% 50%; /* Shift to warm color prominent */
+  }
+  100% {
+    background-position: 0% 50%; /* Shift back to light color prominent */
+  }
+}
+
+@keyframes gradientDrift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes fadeInDown{from{opacity:0;transform:translateY(-40px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+@keyframes backgroundPan{0%{background-position:0% 0%}100%{background-position:100% 100%}}
+@keyframes typingGlow{0%,100%{text-shadow:0 0 8px rgba(var(--accent-color-rgb),.4)}50%{text-shadow:0 0 15px rgba(var(--accent-color-rgb),.8)}}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .projects h2 {
+        font-size: 3rem;
+    }
+    .projects-container {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Slightly smaller min-width for tablets */
+        gap: 30px;
+    }
+    .project-details h3 {
+        font-size: 2.2rem;
+    }
+    .project-details p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+  #navbar{flex-direction:column;padding:.8rem}
+  #navbar h1{font-size:1.8rem}
+  #navbar nav{margin-top:10px;display:flex;flex-wrap:wrap;justify-content:center;gap:15px}
+  #navbar nav a{margin-left:0;font-size:1.05rem}
+  .hero{padding:10rem 1rem 6rem; align-items: flex-start;} /* Adjusted for mobile left alignment */
+  /* Removed profile-photo styling for mobile */
+  .hero h1.typed-text{font-size:4rem; text-align: left;} /* Adjusted for mobile left alignment */
+  .hero p{font-size:1.5rem; text-align: left;} /* Adjusted for mobile left alignment */
+  .about, .projects, .contact{padding:60px 0;margin:4rem auto} /* Removed .skills */
+  .about h2, .projects h2, .contact h2{font-size:3.2rem;margin-bottom:3rem} /* Removed .skills h2 */
+  .about p, .contact p{font-size:1.15rem;line-height:1.8} /* Original .about p will be overridden by .about-text-content p */
+  /* Removed skills-grid and skill-item */
+  .projects-container {
+        grid-template-columns: 1fr; /* Single column layout for smaller tablets and mobile */
+        max-width: 500px; /* Constrain width for single column */
+    }
+    .project-item {
+        flex-direction: column; /* Ensure vertical stacking */
+    }
+    .project-image-container {
+        padding-top: 65%; /* Slightly taller aspect ratio for mobile cards */
+    }
+    .project-details {
+        padding: 20px;
+    }
+    .project-details h3 {
+        font-size: 2rem;
+    }
+    .project-buttons .button {
+        font-size: 0.95rem;
+        padding: 10px 18px;
+    }
+    .image-nav-arrows .arrow {
+        font-size: 1.5rem;
+        padding: 10px 15px;
+    }
+  .contact .button{font-size:1.2rem;padding:1.1rem 2.8rem}
+  footer{padding:3.5rem 1rem;margin-top:6rem}
+  footer p{font-size:1rem;margin-bottom:2rem}
+  #welcome-text{font-size:3.5rem}
+  #loading-container{bottom:40px;left:40px;font-size:1.2rem}
+
+ 
+}
+@media (max-width: 480px) {
+  #navbar h1{font-size:1.5rem}
+  #navbar nav{gap:10px}
+  .hero h1.typed-text{font-size:3rem} /* Further reduced for smaller screens */
+  .hero p{font-size:1.2rem}
+  /* Removed profile-photo styling for smaller screens */
+  .about h2, .projects h2, .contact h2{font-size:2.5rem} /* Removed .skills h2 */
+  #welcome-text{font-size:2.8rem}
+  #loading-container{bottom:30px;left:30px;font-size:1rem}
+  /* Removed .contact-form-container styles from media query */
+  .social-connect-container {
+    padding: 0; /* Changed from 1.5rem to 0 */
+  }
+  .social-connect-container h3 {
+    font-size: 2rem;
+  }
+  .social-links-lg {
+    font-size: 2.8rem;
+  }
+  .email-button {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+  }
+    .projects h2 {
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+    }
+    .projects-container {
+        gap: 25px;
+        padding: 0 15px;
+    }
+    .project-image-container {
+        padding-top: 70%; /* Even taller aspect ratio for very small screens */
+    }
+    .project-details {
+        padding: 18px;
+    }
+    .project-details h3 {
+        font-size: 1.8rem;
+    }
+    .project-details p {
+        font-size: 0.95rem;
+        margin-bottom: 15px;
+    }
+    .project-tech-stack {
+        gap: 6px;
+        margin-bottom: 20px;
+    }
+    .tech-tag {
+        padding: 5px 10px;
+        font-size: 0.8rem;
+    }
+    .project-buttons {
+        flex-direction: column; /* Stack buttons vertically on very small screens */
+        gap: 10px;
+    }
+    .project-buttons .button {
+        width: 100%; /* Full width buttons */
+    }
+}

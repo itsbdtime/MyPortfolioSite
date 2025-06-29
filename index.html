@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dev Brahmbhatt | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <div id="welcome-overlay">
+    <h1 id="welcome-text"></h1>
+    <div id="loading-container"></div>
+  </div>
+
+  <header id="navbar">
+    <h1></h1>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <video autoplay muted loop id="video-background">
+      <source src="assets/background-video.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+
+    <div class="hero-content">
+      <h1 class="typed-text">Hi, I'm Dev</h1>
+      <p>Dev builds powerful, precise, and practical engineering solutions.</p>
+      <a href="assets/Dev Brahmbhatt_Resume.pdf" download="Dev Brahmbhatt_Resume.pdf" class="button resume-button">
+        Download Resume
+      </a>
+    </div>
+  </section>
+
+  <section id="about" class="about">
+    <h2>About Me</h2>
+    <hr/>
+    <div class="about-content">
+        <div class="profile-photo-container">
+            <img src="assets/profile.jpg" alt="Dev Brahmbhatt Profile Picture" class="profile-photo">
+            <span class="thats-me-annotation">That's me <span class="arrow">-></span></span>
+        </div>
+        <div class="about-text-content">
+            <p>I'm a passionate third-year Computer Engineering student at Toronto Metropolitan University, where I've cultivated a robust foundation in both hardware and software design. My journey has been enriched by diverse technical projects and volunteer initiatives, which have not only sharpened my engineering analysis and report-writing abilities but also fostered my growth as a leader and effective team member. I thrive on the challenge of translating complex ideas into clear solutions, whether it's designing embedded systems, troubleshooting intricate code, or drafting detailed documentation. My core drive is to explore how cutting-edge technologies can make systems smarter, faster, and more efficient, with a particular focus on energy-efficient computing, microcontroller programming, and systems design.</p>
+         </div>
+    </div>
+  </section>
+
+  <section id="projects" class="projects">
+    <h2>My Projects</h2>
+    <div class="projects-container">
+        <div class="project-item">
+            <div class="project-image-container" data-images="assets/AstroWatch Images/1.png,assets/AstroWatch Images/2.png,assets/AstroWatch Images/3.png">
+                <img src="assets/AstroWatch Images/1.png" alt="AstroWatch Project Image 1" class="project-main-image" />
+                <div class="image-nav-arrows">
+                    <button class="arrow prev-arrow">&#10094;</button>
+                    <button class="arrow next-arrow">&#10095;</button>
+                </div>
+            </div>
+            <div class="project-details">
+                <h3>AstroWatch</h3>
+                <p>A comprehensive Satellite Tracking and Collision Detection System, designed to provide dynamic insights into Earth-orbiting satellites. It accurately visualizes satellites in a 3D Earth orbit, offers a detailed 2D ground track for individual satellites, and crucially, performs real-time collision risk assessments by retrieving the latest satellite data from Celestrak. The system is built using Python, with key libraries including PyQt5 for the graphical user interface, Skyfield for precise orbital calculations, Matplotlib for data visualization, and NumPy along with SciPy for robust numerical computations.</p>
+                <div class="project-tech-stack">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">PyQt5</span>
+                    <span class="tech-tag">Matplotlib</span>
+                    <span class="tech-tag">Skyfield</span>
+                    <span class="tech-tag">QSS</span>
+                    <span class="tech-tag">API Integration</span>
+                </div>
+                <div class="project-buttons">
+                    <a href="https://example.com/astrowatch-demo" target="_blank" class="button live-demo">Live Demo <i class="fas fa-external-link-alt"></i></a>
+                    <a href="https://github.com/yourusername/astrowatch" target="_blank" class="button view-source">View Source <i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-item">
+            <div class="project-image-container" data-images="assets/Bookstore Application/1.png,assets/Bookstore Application/2.png,assets/Bookstore Application/3.png, assets/Bookstore Application/4.png, assets/Bookstore Application/5.png, assets/Bookstore Application/6.png">
+                <img src="assets/Bookstore Application/1.png" alt="SmartHome Automation System Image 1" class="project-main-image" />
+                <div class="image-nav-arrows">
+                    <button class="arrow prev-arrow">&#10094;</button>
+                    <button class="arrow next-arrow">&#10095;</button>
+
+                </div>
+            </div>
+            <div class="project-details">
+                <h3>Bookstore Application System</h3>
+                <p>A comprehensive Bookstore Application developed to manage book inventory and customer interactions within a single-window graphical user interface (GUI). Built using JavaFX and NetBeans IDE, this project focuses on a robust design incorporating the State Design Pattern. The application distinguishes between two user types: an Owner and Customers. The Owner has administrative capabilities, including adding and deleting books and registering new customer accounts. Customers can browse available books, make purchases , and utilize a loyalty point system where points can be accumulated and redeemed against transaction costs. </p>
+                <div class="project-tech-stack">
+                    <span class="tech-tag">Java</span>
+                    <span class="tech-tag">JavaFX Pi</span>
+                    <span class="tech-tag">NetBeans</span>
+                    <span class="tech-tag">OOP</span>
+                    <span class="tech-tag">System Design</span>
+                </div>
+                <div class="project-buttons">
+                    <a href="https://example.com/smarthome-demo" target="_blank" class="button live-demo">Live Demo <i class="fas fa-external-link-alt"></i></a>
+                    <a href="https://github.com/yourusername/smarthome-automation" target="_blank" class="button view-source">View Source <i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-item">
+            <div class="project-image-container" data-images="assets/NLPTool Images/1.png,assets/NLPTool Images/2.png,assets/NLPTool Images/3.png">
+                <img src="assets/NLPTool Images/1.png" alt="NLP Text Analysis Tool Image 1" class="project-main-image" />
+                <div class="image-nav-arrows">
+                    <button class="arrow prev-arrow">&#10094;</button>
+                    <button class="arrow next-arrow">&#10095;</button>
+                </div>
+            </div>
+            <div class="project-details">
+                <h3>NLP Text Analysis Tool</h3>
+                <p>A command-line and web-based tool for performing natural language processing tasks such as sentiment analysis, keyword extraction, and text summarization. Utilizes various NLP libraries to provide insightful data from raw text inputs.</p>
+                <div class="project-tech-stack">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">NLTK</span>
+                    <span class="tech-tag">SpaCy</span>
+                    <span class="tech-tag">Streamlit</span>
+                    <span class="tech-tag">Machine Learning</span>
+                </div>
+                <div class="project-buttons">
+                    <a href="https://example.com/nlptool-demo" target="_blank" class="button live-demo">Live Demo <i class="fas fa-external-link-alt"></i></a>
+                    <a href="https://github.com/yourusername/nlp-text-analysis" target="_blank" class="button view-source">View Source <i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <h2>Let's Connect!</h2>
+    <p>
+      I'm always looking for new challenges and opportunities to grow. Whether you have a project idea, a job offer, or just want to chat about tech, my inbox is always open. Feel free to reach out using the form below or connect with me on my social channels!
+    </p>
+
+    <div class="contact-content-wrapper">
+      <div class="social-connect-container">
+        <h3>My Socials</h3>
+        <p>Connect with me on these platforms:</p>
+        <div class="social-links-lg">
+          <a href="https://github.com/yourusername" target="_blank" aria-label="GitHub">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="https://linkedin.com/in/yourusername" target="_blank" aria-label="LinkedIn">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://twitter.com/yourusername" target="_blank" aria-label="Twitter">
+            <i class="fab fa-twitter"></i>
+          </a>
+        </div>
+        <div class="email-direct">
+          <p>You can always reach me directly at:</p>
+          <a href="mailto:devlogia23@gmail.com" class="button email-button">
+            devlogia23@gmail.com
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Dev Brahmbhatt. All rights reserved.</p>      
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
